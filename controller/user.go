@@ -10,5 +10,11 @@ func User_login(ctx *gin.Context) {
 	fmt.Println("User_login is running")
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
+		"data": []interface{}{
+			gin.H{
+				"username": "root",
+				"password": "123456",
+			},
+		},
 	})
 }
