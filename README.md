@@ -132,3 +132,28 @@ N/A
 }
 ```
 
+#### /student_show/studentID_search
+
+>POST
+
+```json
+{
+  "studentID":"153"
+}
+```
+
+```jSON
+{
+  "code": 200,
+  "data": [
+    {
+      "studentID": 153,
+      "name": "零梦",
+      "age": 20,
+      "sex": "男",
+      "department": "人工智能"
+    }
+  ]
+}
+```
+
