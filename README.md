@@ -159,6 +159,8 @@ N/A
 
 #### /student_delete
 
+> POST
+
 ```json
 {
   "studentID":"1111"
@@ -174,6 +176,8 @@ N/A
 ```
 
 #### /student_add
+
+> POST
 
 ```json
 {
