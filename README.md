@@ -132,7 +132,7 @@ N/A
 }
 ```
 
-#### /student_show/studentID_search
+#### /student_searchID
 
 >POST
 
@@ -154,6 +154,48 @@ N/A
       "department": "人工智能"
     }
   ]
+}
+```
+
+#### /student_delete
+
+```json
+{
+  "studentID":"1111"
+}
+```
+
+```json
+{
+  "code": 200,
+  "msg": "删除成功",
+  "number": 1
+}
+```
+
+#### /student_add
+
+```json
+{
+  "studentID": 1234567153,
+  "name": "零梦",
+  "age": 20,
+  "sex": "男",
+  "department": "人工智能"
+}
+```
+
+```json
+{
+  "code": 200,
+  "data": {
+    "studentID": 1234567153,
+    "name": "零梦",
+    "age": 20,
+    "sex": "男",
+    "department": "人工智能"
+  },
+  "msg": "注册成功"
 }
 ```
 
