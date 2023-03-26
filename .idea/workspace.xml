@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f10ff8b-d4b0-4875-8d5a-414d9b60e6d6" name="Changes" comment="[0.12]新增/student_show/studentID_search接口">
+    <list default="true" id="4f10ff8b-d4b0-4875-8d5a-414d9b60e6d6" name="Changes" comment="[0.13]新增student_add和student_delete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/student_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/student_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/student.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/student.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,8 @@
     <MESSAGE value="[0.11]完成的user的注册与注销,完成了student的读取全部数据" />
     <MESSAGE value="[0.11.1]补充项目文档" />
     <MESSAGE value="[0.12]新增/student_show/studentID_search接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.12]新增/student_show/studentID_search接口" />
+    <MESSAGE value="[0.13]新增student_add和student_delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.13]新增student_add和student_delete" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
