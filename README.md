@@ -203,3 +203,32 @@ N/A
 }
 ```
 
+#### /student_modify
+
+> POST
+
+```JSON
+//其中的学号是必须数据库内所有的数据，建议与/student_searchID联动使用
+{
+  "studentID": "123",
+  "name": "大猛",
+  "age": "20" ,
+  "sex": "男",
+  "department": "人工智能"
+}
+```
+
+```json
+{
+  "code": 200,
+  "data": {
+    "studentID": "123",
+    "name": "大猛",
+    "age": "20",
+    "sex": "男",
+    "department": "人工智能"
+  },
+  "msg": "修改成功"
+}
+```
+

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"backEnd_Gin/model"
+	"backEnd_Gin/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -128,15 +129,58 @@ func StudentAdd(ctx *gin.Context) {
 			//log.Fatalln(err)
 			return
 		} else {
-			sqlStr = "select * from student where studentid = ? ;"
-			row := db.QueryRow(sqlStr, jsoninfo.StudentID)
-			var student model.Student
-			row.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department)
+			student := utils.GetStudentData(jsoninfo.StudentID)
 			ctx.JSON(http.StatusOK, gin.H{
 				"code": 200,
 				"msg":  "注册成功",
 				"data": student,
 			})
+		}
+	}
+}
+
+func StudentModify(ctx *gin.Context) {
+	var jsoninfo model.Student
+	if err := ctx.ShouldBindJSON(&jsoninfo); err != nil {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code": 405,
+			"msg":  "读取数据失败",
+			"err":  err.Error(),
+		})
+		//log.Fatalln(err)
+		return
+	} else {
+		sqlStr := "update student set name = ?,age= ?,sex=?,department=? where studentid = ?"
+		stmt, err := db.Exec(sqlStr, jsoninfo.Name, jsoninfo.Age, jsoninfo.Sex, jsoninfo.Department, jsoninfo.StudentID)
+		if err != nil {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"code": 422,
+				"msg":  "更新失败",
+				"err":  err.Error(),
+			})
+		} else {
+			returnNumber, err := stmt.RowsAffected()
+			if err != nil {
+				ctx.JSON(http.StatusOK, gin.H{
+					"code": 403,
+					"msg":  "修改失败，写入数据报错",
+					"err":  err.Error(),
+				})
+			}
+			if returnNumber == 0 {
+				ctx.JSON(http.StatusOK, gin.H{
+					"code": 403,
+					"msg":  "修改失败,找不到该账号或密码错误",
+					"data": jsoninfo,
+				})
+			} else {
+				student := utils.GetStudentData(jsoninfo.StudentID)
+				ctx.JSON(http.StatusOK, gin.H{
+					"code": 200,
+					"msg":  "修改成功",
+					"data": student,
+				})
+			}
 		}
 	}
 }

@@ -61,7 +61,7 @@ func UserRegister(ctx *gin.Context) {
 		if err != nil {
 			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 				"code": 405,
-				"msg":  "注册失败，账号已经存在",
+				"msg":  "注册失败，写入数据库失败",
 				"err":  err.Error(),
 			})
 			fmt.Println("ERROR/User_register is err: Data conflict")
@@ -106,6 +106,7 @@ func UserCancel(ctx *gin.Context) {
 				ctx.JSON(http.StatusOK, gin.H{
 					"code": 403,
 					"msg":  "注销失败",
+					"err":  err.Error(),
 					"data": []interface{}{
 						jsoninfo,
 					},

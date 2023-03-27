@@ -14,6 +14,7 @@ func CollectRoute(gin_server *gin.Engine) *gin.Engine {
 	gin_server.POST("/student_searchID", controller.StudentIDSearch)
 	gin_server.POST("/student_delete", controller.StudentDelete)
 	gin_server.POST("/student_add", controller.StudentAdd)
+	gin_server.POST("/student_modify", controller.StudentModify)
 
 	gin_server.GET("/test", controller.Test)
 	return gin_server
