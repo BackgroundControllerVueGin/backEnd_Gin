@@ -80,7 +80,7 @@
 
 ### student
 
-#### /student_show
+#### /student_list
 
 >GET
 

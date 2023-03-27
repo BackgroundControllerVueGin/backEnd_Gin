@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func StudentShow(ctx *gin.Context) {
+func StudentList(ctx *gin.Context) {
 	fmt.Println("Student_show is running")
 	rows, err := db.Query("SELECT * FROM student")
 	if err != nil {
