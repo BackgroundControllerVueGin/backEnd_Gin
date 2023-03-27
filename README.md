@@ -91,42 +91,54 @@ N/A
 ```JSON
 {
   "code": 200,
-  "data": 
-  [
+  "data": [
     {
-      "studentID": 153,
+      "studentID": "1234567153",
       "name": "零梦",
-      "age": 20,
+      "age": "20",
       "sex": "男",
-      "department": "人工智能"
+      "department": "人工智能",
+      "studentclass": "软件工程一班"
     },
     {
-      "studentID": 154,
+      "studentID": "1234567154",
       "name": "李明",
-      "age": 21,
+      "age": "21",
       "sex": "女",
-      "department": "人工智能"
+      "department": "人工智能",
+      "studentclass": "软件工程二班"
     },
     {
-      "studentID": 155,
+      "studentID": "1234567155",
       "name": "委屈",
-      "age": 22,
+      "age": "22",
       "sex": "男",
-      "department": "人工智能"
+      "department": "人工智能",
+      "studentclass": "软件工程一班"
     },
     {
-      "studentID": 156,
+      "studentID": "1234567156",
       "name": "林妹妹",
-      "age": 22,
+      "age": "22",
       "sex": "女",
-      "department": "现代音乐"
+      "department": "现代音乐",
+      "studentclass": "现代音乐一班"
     },
     {
-      "studentID": 157,
+      "studentID": "1234567157",
       "name": "0m",
-      "age": 22,
+      "age": "22",
       "sex": "男",
-      "department": "土木工程"
+      "department": "土木工程",
+      "studentclass": "和水泥一班"
+    },
+    {
+      "studentID": "1234567158",
+      "name": "yw",
+      "age": "23",
+      "sex": "男",
+      "department": "继续教育",
+      "studentclass": "人工智能一班"
     }
   ]
 }
@@ -138,7 +150,7 @@ N/A
 
 ```json
 {
-  "studentID":"153"
+  "studentID":"1234567153"
 }
 ```
 
@@ -147,11 +159,12 @@ N/A
   "code": 200,
   "data": [
     {
-      "studentID": 153,
+      "studentID": "1234567153",
       "name": "零梦",
-      "age": 20,
+      "age": "20",
       "sex": "男",
-      "department": "人工智能"
+      "department": "人工智能",
+      "studentclass": "软件工程一班"
     }
   ]
 }
@@ -163,7 +176,7 @@ N/A
 
 ```json
 {
-  "studentID":"1111"
+  "studentID": "12344444"
 }
 ```
 
@@ -181,11 +194,12 @@ N/A
 
 ```json
 {
-  "studentID": 1234567153,
+  "studentID": "12344444",
   "name": "零梦",
-  "age": 20,
+  "age": "20",
   "sex": "男",
-  "department": "人工智能"
+  "department": "人工智能",
+  "studentclass":"软件工程一班"
 }
 ```
 
@@ -193,11 +207,12 @@ N/A
 {
   "code": 200,
   "data": {
-    "studentID": 1234567153,
+    "studentID": "12344444",
     "name": "零梦",
-    "age": 20,
+    "age": "20",
     "sex": "男",
-    "department": "人工智能"
+    "department": "人工智能",
+    "studentclass": "软件工程一班"
   },
   "msg": "注册成功"
 }

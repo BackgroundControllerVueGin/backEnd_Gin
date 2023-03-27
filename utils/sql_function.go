@@ -11,6 +11,6 @@ func GetStudentData(studentID string) model.Student {
 	sqlStr := "select * from student where studentid = ? ;"
 	row := db.QueryRow(sqlStr, studentID)
 	var student model.Student
-	row.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department)
+	row.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department, &student.Studentclass)
 	return student
 }

@@ -71,7 +71,7 @@ func UserRegister(ctx *gin.Context) {
 			sqlStr = "select * from user where username = ? and password = ?;"
 			row := db.QueryRow(sqlStr, json["username"], json["password"])
 			var user model.User
-			row.Scan(&user.Username, &user.Password)
+			row.Scan(&user.No, &user.Username, &user.Password)
 			ctx.JSON(http.StatusOK, gin.H{
 				"code": 200,
 				"msg":  "注册成功",
@@ -126,7 +126,10 @@ func UserCancel(ctx *gin.Context) {
 					"msg":    "注销成功",
 					"number": returnNumber,
 					"data": []interface{}{
-						jsoninfo,
+						gin.H{
+							"username": jsoninfo.Username,
+							"password": jsoninfo.Password,
+						},
 					},
 				})
 			}

@@ -23,7 +23,7 @@ func StudentList(ctx *gin.Context) {
 	students := make([]model.Student, 0)
 	for rows.Next() {
 		var student model.Student
-		rows.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department)
+		rows.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department, &student.Studentclass)
 		students = append(students, student)
 	}
 	if err = rows.Err(); err != nil {
@@ -55,19 +55,31 @@ func StudentIDSearch(ctx *gin.Context) {
 	students := make([]model.Student, 0)
 	for rows.Next() {
 		var student model.Student
-		rows.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department)
+		rows.Scan(&student.StudentID, &student.Name, &student.Age, &student.Sex, &student.Department, &student.Studentclass)
 		students = append(students, student)
 	}
 	if err = rows.Err(); err != nil {
 		fmt.Println("ERROR/StudentIDSearch is error")
+	} else {
+		str := fmt.Sprintf("找不到数据：%s", json["studentID"])
+		if len(students) <= 0 {
+			ctx.JSON(
+				200,
+				gin.H{
+					"code": 403,
+					"msg":  str,
+				},
+			)
+		} else {
+			ctx.JSON(
+				200,
+				gin.H{
+					"code": 200,
+					"data": students,
+				},
+			)
+		}
 	}
-	ctx.JSON(
-		200,
-		gin.H{
-			"code": 200,
-			"data": students,
-		},
-	)
 }
 
 func StudentDelete(ctx *gin.Context) {
@@ -118,8 +130,8 @@ func StudentAdd(ctx *gin.Context) {
 		return
 	} else {
 		fmt.Println(jsoninfo)
-		sqlStr := "INSERT INTO student (studentid, name, age, sex, department) VALUES (?, ?, ?, ?, ?)"
-		_, err := db.Exec(sqlStr, jsoninfo.StudentID, jsoninfo.Name, jsoninfo.Age, jsoninfo.Sex, jsoninfo.Department)
+		sqlStr := "INSERT INTO student (studentid, name, age, sex, department,studentclass) VALUES (?, ?, ?, ?, ?,?)"
+		_, err := db.Exec(sqlStr, jsoninfo.StudentID, jsoninfo.Name, jsoninfo.Age, jsoninfo.Sex, jsoninfo.Department, jsoninfo.Studentclass)
 		if err != nil {
 			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 				"code": 405,
@@ -150,8 +162,8 @@ func StudentModify(ctx *gin.Context) {
 		//log.Fatalln(err)
 		return
 	} else {
-		sqlStr := "update student set name = ?,age= ?,sex=?,department=? where studentid = ?"
-		stmt, err := db.Exec(sqlStr, jsoninfo.Name, jsoninfo.Age, jsoninfo.Sex, jsoninfo.Department, jsoninfo.StudentID)
+		sqlStr := "update student set name = ?,age= ?,sex=?,department=?,studentclass=? where studentid = ?"
+		stmt, err := db.Exec(sqlStr, jsoninfo.Name, jsoninfo.Age, jsoninfo.Sex, jsoninfo.Department, jsoninfo.Studentclass, jsoninfo.StudentID)
 		if err != nil {
 			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
 				"code": 422,
