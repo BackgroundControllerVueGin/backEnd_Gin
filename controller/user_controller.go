@@ -27,9 +27,13 @@ func UserLogin(ctx *gin.Context) {
 	row := db.QueryRow(sqlStr, jsoninfo.Username, jsoninfo.Password)
 	if row == nil {
 		fmt.Println("ERROR/User_login is err: No data")
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    403,
+			"message": "账号密码错误",
+		})
 	}
 	var user model.User
-	row.Scan(&user.Username, &user.Password)
+	row.Scan(&user.No, &user.Username, &user.Password)
 	if user.Username != jsoninfo.Username && user.Password != jsoninfo.Password {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    403,

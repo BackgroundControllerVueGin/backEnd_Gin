@@ -10,7 +10,8 @@
 
 ```json
 {
-  "username":"12345","password":"123456"
+  "username": "admin",
+  "password": "123456"
 }
 ```
 
@@ -21,10 +22,12 @@
   "code": 200,
   "data": [
     {
-      "password": "123456",
-      "username": "root"
+      "no": "2",
+      "username": "admin",
+      "password": "123456"
     }
-  ]
+  ],
+  "message": "登录成功"
 }
 ```
 
@@ -34,7 +37,7 @@
 
 ```json
 {
-  "username": "11111",
+  "username": "123456",
   "password": "123456",
   "passwordAgain": "123456"
 }
@@ -44,7 +47,8 @@
 {
   "code": 200,
   "data": {
-    "username": "11111",
+    "no": "9",
+    "username": "123456",
     "password": "123456"
   },
   "msg": "注册成功"
