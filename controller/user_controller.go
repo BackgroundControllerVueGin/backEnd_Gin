@@ -8,12 +8,11 @@ import (
 )
 
 func UserLogin(ctx *gin.Context) {
-	fmt.Println("User_login is running")
+	fmt.Println("User_login is running yes")
 
 	//json := make(map[string]interface{})
 	//ctx.BindJSON(&json)
 	//fmt.Println(json)
-
 	var jsoninfo model.User
 	if err := ctx.ShouldBindJSON(&jsoninfo); err != nil {
 		fmt.Printf("%s and %s\n", jsoninfo.Username, jsoninfo.Password)

@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f10ff8b-d4b0-4875-8d5a-414d9b60e6d6" name="Changes" comment="[0.14.2]我们伟大的数据库又进行了一次伟大的更新，导致了我们的后端工作量大大的”减少”，后端表示非常的好，这次更新使得我们的前后端可以拥有更好的学习机会，丰富了我们的工作经理，与社会实践能力！！！">
+    <list default="true" id="4f10ff8b-d4b0-4875-8d5a-414d9b60e6d6" name="Changes" comment="[0.14.3]修复/user_login登录失败的BUG">
+      <change afterPath="$PROJECT_DIR$/controller/page_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/page.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/sql_function.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/sql_function.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +52,7 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;go.vgo&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.goide.configuration.GoLibrariesConfigurableProvider&quot;
   }
 }</component>
   <component name="RunManager" selected="Go Build.go build main.go">
@@ -100,7 +106,8 @@
     <MESSAGE value="[0.14]新增Utils工具包，新增/student_searchID接口" />
     <MESSAGE value="[0.14.1]/student_show-&gt;/student_list" />
     <MESSAGE value="[0.14.2]我们伟大的数据库又进行了一次伟大的更新，导致了我们的后端工作量大大的”减少”，后端表示非常的好，这次更新使得我们的前后端可以拥有更好的学习机会，丰富了我们的工作经理，与社会实践能力！！！" />
-    <option name="LAST_COMMIT_MESSAGE" value="[0.14.2]我们伟大的数据库又进行了一次伟大的更新，导致了我们的后端工作量大大的”减少”，后端表示非常的好，这次更新使得我们的前后端可以拥有更好的学习机会，丰富了我们的工作经理，与社会实践能力！！！" />
+    <MESSAGE value="[0.14.3]修复/user_login登录失败的BUG" />
+    <option name="LAST_COMMIT_MESSAGE" value="[0.14.3]修复/user_login登录失败的BUG" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

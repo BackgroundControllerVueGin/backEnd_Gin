@@ -1,5 +1,7 @@
 # backEnd_Gin 说明文档
 
+[TOC]
+
 ## 接口说明
 
 ### user
@@ -248,6 +250,50 @@ N/A
     "department": "人工智能"
   },
   "msg": "修改成功"
+}
+```
+
+### 功能类接口
+
+#### /next_page
+
+> /next_page：暂定该名，会修改
+>
+> POST:用于实现student表的翻页功能
+
+```json
+//数据类型为INT
+//data_number:为一页有多少数据
+//current_page:为当前页码数
+{
+  "data_number": 4,
+  "current_page": 2
+}
+```
+
+```json
+//total为当前数据库内有的数据条数
+{
+  "code": 200,
+  "data": [
+    {
+      "studentID": "1234567157",
+      "name": "0m",
+      "age": "22",
+      "sex": "男",
+      "department": "土木工程",
+      "studentclass": "和水泥一班"
+    },
+    {
+      "studentID": "1234567158",
+      "name": "yw",
+      "age": "23",
+      "sex": "男",
+      "department": "继续教育",
+      "studentclass": "人工智能一班"
+    }
+  ],
+  "total": 6
 }
 ```
 
