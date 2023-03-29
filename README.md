@@ -33,6 +33,7 @@
 
 
 ```json
+//token：用户之后的账号认证
 {
   "code": 200,
   "data": [
@@ -42,7 +43,8 @@
       "password": "123456"
     }
   ],
-  "message": "登录成功"
+  "message": "登录成功",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJubyI6IjIiLCJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJleHAiOjE2ODAwNzQxNDd9.IXdwgi54VYz1ABGr-5_CFJGPGdTozUvZmnjTQTr57YA"
 }
 ```
 

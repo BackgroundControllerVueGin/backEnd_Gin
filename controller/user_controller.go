@@ -2,6 +2,7 @@ package controller
 
 import (
 	"backEnd_Gin/model"
+	"backEnd_Gin/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -42,12 +43,18 @@ func UserLogin(ctx *gin.Context) {
 			},
 		})
 	} else {
+		var usertoken model.UserToken
+		usertoken.No = user.No
+		usertoken.Username = user.Username
+		usertoken.Password = user.Password
+		token := utils.GenerateToken(&usertoken)
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    200,
 			"message": "登录成功",
 			"data": []interface{}{
 				user,
 			},
+			"token": token,
 		})
 	}
 	fmt.Println(jsoninfo)
