@@ -26,7 +26,7 @@ func GenerateToken(claims *model.UserToken) string {
 	sign, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(secret)
 	if err != nil {
 		//这里因为项目接入了统一异常处理，所以使用panic并不会使程序终止，如不接入，可使用原始方式处理错误
-		//接入统一异常可参考 https://blog.csdn.net/u014155085/article/details/106733391
+		//接入统一异常可参考
 		panic(err)
 	}
 	return sign

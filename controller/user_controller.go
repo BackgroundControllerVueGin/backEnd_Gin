@@ -6,14 +6,11 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func UserLogin(ctx *gin.Context) {
 	fmt.Println("User_login is running yes")
-
-	//json := make(map[string]interface{})
-	//ctx.BindJSON(&json)
-	//fmt.Println(json)
 	var jsoninfo model.User
 	if err := ctx.ShouldBindJSON(&jsoninfo); err != nil {
 		fmt.Printf("%s and %s\n", jsoninfo.Username, jsoninfo.Password)
@@ -23,28 +20,24 @@ func UserLogin(ctx *gin.Context) {
 		})
 		return
 	}
-	sqlStr := "select * from user where username = ? and password = ?"
-	row := db.QueryRow(sqlStr, jsoninfo.Username, jsoninfo.Password)
-	if row == nil {
-		fmt.Println("ERROR/User_login is err: No data")
-		ctx.JSON(http.StatusOK, gin.H{
-			"code":    403,
-			"message": "账号密码错误",
-		})
-	}
 	var user model.User
-	row.Scan(&user.No, &user.Username, &user.Password)
-	if user.Username != jsoninfo.Username && user.Password != jsoninfo.Password {
-		ctx.JSON(http.StatusOK, gin.H{
-			"code":    403,
-			"message": "账号密码错误",
-			"data": []interface{}{
-				jsoninfo,
-			},
-		})
+	result := db.Where("username = ? and password = ?", jsoninfo.Username, jsoninfo.Password).First(&user)
+	if result.Error != nil {
+		if result.RowsAffected != 0 {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"code": 405,
+				"msg":  result.Error,
+			})
+		} else {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"code": 405,
+				"msg":  "登录失败，找不到该账号",
+				"data": result.RowsAffected,
+			})
+		}
 	} else {
 		var usertoken model.UserToken
-		usertoken.No = user.No
+		usertoken.No = strconv.Itoa(user.No)
 		usertoken.Username = user.Username
 		usertoken.Password = user.Password
 		token := utils.GenerateToken(&usertoken)
@@ -56,8 +49,10 @@ func UserLogin(ctx *gin.Context) {
 			},
 			"token": token,
 		})
+
+		fmt.Println(jsoninfo)
 	}
-	fmt.Println(jsoninfo)
+
 }
 
 func UserRegister(ctx *gin.Context) {
@@ -66,27 +61,26 @@ func UserRegister(ctx *gin.Context) {
 	ctx.BindJSON(&json)
 	fmt.Println(json["username"])
 	if json["password"] == json["passwordAgain"] {
-		sqlStr := "insert into user(username,password) VALUES (?,?)"
-		_, err := db.Exec(sqlStr, json["username"], json["password"])
-		if err != nil {
-			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
-				"code": 405,
-				"msg":  "注册失败，写入数据库失败",
-				"err":  err.Error(),
-			})
-			fmt.Println("ERROR/User_register is err: Data conflict")
-			//log.Fatalln(err)
-			return
+		username := json["username"]
+		password := json["password"]
+		user := model.User{
+			Username: username.(string),
+			Password: password.(string),
+		}
+		result := db.Create(&user)
+		if utils.Err_return_json(ctx, result, "注册失败，写入数据库失败，可能是存在同名账户") {
+			result := db.Where("username = ? and password = ?", username, password).First(&user)
+			if utils.Err_return_json(ctx, result, "注册失败，查询不到注册账号") {
+				ctx.JSON(http.StatusOK, gin.H{
+					"code":    200,
+					"message": "注册成功",
+					"data": []interface{}{
+						user,
+					},
+				})
+			}
 		} else {
-			sqlStr = "select * from user where username = ? and password = ?;"
-			row := db.QueryRow(sqlStr, json["username"], json["password"])
-			var user model.User
-			row.Scan(&user.No, &user.Username, &user.Password)
-			ctx.JSON(http.StatusOK, gin.H{
-				"code": 200,
-				"msg":  "注册成功",
-				"data": user,
-			})
+			fmt.Println("ERROR/User_register is err: Data conflict")
 		}
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -100,41 +94,26 @@ func UserRegister(ctx *gin.Context) {
 func UserCancel(ctx *gin.Context) {
 	fmt.Println("User_cancel is running")
 	var jsoninfo model.User
+	var user model.User
 	if err := ctx.ShouldBindJSON(&jsoninfo); err == nil {
-		rs, err := db.Exec("DELETE FROM user WHERE username = ? and password = ?;", jsoninfo.Username, jsoninfo.Password)
-		if err != nil {
-			fmt.Println("ERROR/User_cancel is err: No data")
-			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
-				"code": 405,
-				"msg":  "数据发送错误：找不到该用户",
-				"err":  err.Error(),
-			})
-			return
-		} else {
-			returnNumber, err := rs.RowsAffected()
-			if err != nil {
+		result := db.Where("username = ? and password = ?", jsoninfo.Username, jsoninfo.Password).Delete(&user)
+		if utils.Err_return_json(ctx, result, "数据发送错误：找不到该用户") {
+			if result.RowsAffected == 0 {
 				ctx.JSON(http.StatusOK, gin.H{
-					"code": 403,
-					"msg":  "注销失败",
-					"err":  err.Error(),
+					"code": 200,
+					"msg":  "注销失败，找不到该账号",
 					"data": []interface{}{
-						jsoninfo,
-					},
-				})
-			}
-			if returnNumber == 0 {
-				ctx.JSON(http.StatusOK, gin.H{
-					"code": 403,
-					"msg":  "注销失败,找不到该账号或密码错误",
-					"data": []interface{}{
-						jsoninfo,
+						gin.H{
+							"username": jsoninfo.Username,
+							"password": jsoninfo.Password,
+						},
 					},
 				})
 			} else {
 				ctx.JSON(http.StatusOK, gin.H{
 					"code":   200,
 					"msg":    "注销成功",
-					"number": returnNumber,
+					"number": result.RowsAffected,
 					"data": []interface{}{
 						gin.H{
 							"username": jsoninfo.Username,
@@ -150,8 +129,9 @@ func UserCancel(ctx *gin.Context) {
 	}
 }
 
-func Test(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "测试成功",
-	})
-}
+//
+//func Test(ctx *gin.Context) {
+//	ctx.JSON(http.StatusOK, gin.H{
+//		"msg": "测试成功",
+//	})
+//}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backEnd_Gin/common"
 	"backEnd_Gin/routes"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	common.InitDB()
 
 }
 
